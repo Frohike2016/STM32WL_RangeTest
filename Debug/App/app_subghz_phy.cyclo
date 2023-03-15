@@ -1,0 +1,2 @@
+app_subghz_phy.c:64:6:MX_SubGHz_Phy_Init	1
+app_subghz_phy.c:77:6:MX_SubGHz_Phy_Process	1

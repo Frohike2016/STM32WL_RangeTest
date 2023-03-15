@@ -1,0 +1,12 @@
+../App/subghz_phy_app.c:174:6:Sensor_Init	56	static
+../App/subghz_phy_app.c:269:13:Sensor_Process	48	static
+../App/subghz_phy_app.c:391:13:OnTxDone	8	static
+../App/subghz_phy_app.c:397:13:OnRxDone	24	static
+../App/subghz_phy_app.c:408:13:OnTxTimeout	8	static
+../App/subghz_phy_app.c:414:13:OnRxTimeout	8	static
+../App/subghz_phy_app.c:420:13:OnRxError	8	static
+../App/subghz_phy_app.c:426:13:OnLedTxEvent	16	static
+../App/subghz_phy_app.c:431:13:OnLedRxEvent	16	static
+../App/subghz_phy_app.c:436:13:OnLedErrorEvent	16	static
+../App/subghz_phy_app.c:441:13:OnTimerTxEvent	16	static
+../App/subghz_phy_app.c:450:17:powInt	24	static

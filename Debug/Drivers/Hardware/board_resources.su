@@ -1,0 +1,14 @@
+../Drivers/STM32WLxx_HAL_Driver/Inc/stm32wlxx_ll_bus.h:449:22:LL_AHB2_GRP1_EnableClock	24	static
+../Drivers/Hardware/board_resources.c:94:9:SYS_LED_Init	40	static
+../Drivers/Hardware/board_resources.c:112:9:SYS_LED_DeInit	16	static
+../Drivers/Hardware/board_resources.c:123:9:SYS_LED_On	16	static
+../Drivers/Hardware/board_resources.c:130:9:SYS_LED_Off	16	static
+../Drivers/Hardware/board_resources.c:137:9:SYS_LED_Toggle	16	static
+../Drivers/Hardware/board_resources.c:144:9:SYS_LED_GetState	16	static
+../Drivers/Hardware/board_resources.c:149:9:SYS_PB_Init	40	static
+../Drivers/Hardware/board_resources.c:188:9:SYS_PB_DeInit	16	static
+../Drivers/Hardware/board_resources.c:196:9:SYS_PB_GetState	16	static
+../Drivers/Hardware/board_resources.c:201:6:SYS_PB_IRQHandler	16	static
+../Drivers/Hardware/board_resources.c:206:13:SYS_BUTTON1_EXTI_Callback	4	static
+../Drivers/Hardware/board_resources.c:212:13:SYS_BUTTON3_EXTI_Callback	4	static
+../Drivers/Hardware/board_resources.c:218:13:SYS_BUTTON2_EXTI_Callback	4	static

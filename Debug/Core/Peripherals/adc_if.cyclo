@@ -1,0 +1,5 @@
+adc_if.c:78:6:SYS_InitMeasurement	1
+adc_if.c:89:6:SYS_DeInitMeasurement	1
+adc_if.c:96:9:SYS_GetTemperatureLevel	3
+adc_if.c:140:10:SYS_GetBatteryLevel	3
+adc_if.c:182:17:ADC_ReadChannels	4
