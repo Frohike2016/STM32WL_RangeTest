@@ -28,7 +28,7 @@ extern "C" {
 #endif
 
 /* Exported constants --------------------------------------------------------*/
-#if (1)
+#if (0)
 #define MX_BOARD_PSEUDODRIVER
 #else
 #define USE_BSP_DRIVER

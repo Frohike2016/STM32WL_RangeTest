@@ -66,7 +66,7 @@
 /**
   * Radio maximum wakeup time (in ms)
   */
-#define RF_WAKEUP_TIME                     10U
+#define RF_WAKEUP_TIME                     10U // TODO: This can be lowered to 3ms but needs to be tested
 
 /**
   * Indicates whether or not TCXO is supported by the board
@@ -80,7 +80,7 @@
   * 0: DCDC not supported
   * 1: DCDC supported
   */
-#define IS_DCDC_SUPPORTED                   0U
+#define IS_DCDC_SUPPORTED                   1U
 
 /**
   * @}

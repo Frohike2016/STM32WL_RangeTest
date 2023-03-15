@@ -46,16 +46,17 @@
 									<listOptionValue builtIn="false" value="../Core/Configuration"/>
 									<listOptionValue builtIn="false" value="../Drivers/STM32WLxx_HAL_Driver/Inc"/>
 									<listOptionValue builtIn="false" value="../Drivers/STM32WLxx_HAL_Driver/Inc/Legacy"/>
+									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
+									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32WLxx/Include"/>
+									<listOptionValue builtIn="false" value="../Drivers/Hardware"/>
+									<listOptionValue builtIn="false" value="../Drivers/Hardware/BSP"/>
+									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/SubGHz_Phy"/>
+									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver"/>
 									<listOptionValue builtIn="false" value="../Utilities/lpm/tiny_lpm"/>
 									<listOptionValue builtIn="false" value="../Utilities/misc"/>
 									<listOptionValue builtIn="false" value="../Utilities/sequencer"/>
 									<listOptionValue builtIn="false" value="../Utilities/timer"/>
 									<listOptionValue builtIn="false" value="../Utilities/trace/adv_trace"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/SubGHz_Phy"/>
-									<listOptionValue builtIn="false" value="../Middlewares/Third_Party/SubGHz_Phy/stm32_radio_driver"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
-									<listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32WLxx/Include"/>
-									<listOptionValue builtIn="false" value="../Drivers/Hardware"/>
 									<listOptionValue builtIn="false" value="../App"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c.509500290" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.input.c"/>

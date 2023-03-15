@@ -45,12 +45,12 @@ extern "C" {
 #define VERBOSE_LEVEL               VLEVEL_M
 
 /**
-  * @brief Enable trace logs
+  * @brief Enable APP trace logs
   */
 #define APP_LOG_ENABLED             1
 
 /**
-  * @brief Enable MCU Debugger pins (dbg serial wires, sbg spi, etc)
+  * @brief Enable MCU Debugger pins (dbg serial wires, dbg spi, etc)
   * @note  1:ON it enables the debbugger, 0:OFF the debugger is OFF (lower consumption)
   */
 #define DEBUGGER_ENABLED            0
