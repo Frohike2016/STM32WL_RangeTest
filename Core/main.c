@@ -23,7 +23,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#ifdef USE_FULL_ASSERT
+#include "sys_app.h"
+#include "sys_debug.h"
+#endif /* USE_FULL_ASSERT */
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -165,7 +168,7 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
@@ -173,16 +176,26 @@ void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+ #ifdef ASSERT_FILE_LOG
+void assert_failed(uint8_t* file, uint32_t line)
 {
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  while (1)
-  {
-  }
-  /* USER CODE END 6 */
+  APP_LOG(TS_OFF, VLEVEL_L, "Wrong parameters: file %s on line %d" _NL_, file, line);
+  #ifndef DEBUGGER_ENABLED /* Release version */
+  //TODO: use available LEDs for showing wrong parameters config
+  while(1);
+  #endif /* !DEBUGGER_ENABLED */
 }
+ #else /* Assert without file LOG */
+void assert_failed ( void )
+{
+  DBG_Incr_AssertFailed ( );
+  APP_LOG(TS_OFF, VLEVEL_L, "Wrong parameters in %d functions" _NL_, DBG_Get_AssertFailed ( ));
+  #ifndef DEBUGGER_ENABLED /* Release version */
+  //TODO: use available LEDs for showing wrong parameters config
+  while(1);
+  #endif /* DEBUG */
+}
+ #endif /* ASSERT_FILE_LOG */
 #endif /* USE_FULL_ASSERT */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

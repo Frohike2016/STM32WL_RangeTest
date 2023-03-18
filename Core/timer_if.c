@@ -29,7 +29,7 @@
 #include "stm32wlxx_ll_rtc.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "sys_conf.h"
 /* USER CODE END Includes */
 
 /* External variables ---------------------------------------------------------*/
@@ -121,11 +121,21 @@ const UTIL_SYSTIM_Driver_s UTIL_SYSTIMDriver =
 
 /* Private macro -------------------------------------------------------------*/
 #ifdef RTIF_DEBUG
-#include "sys_app.h" /*for app_log*/
 /**
   * @brief Post the RTC log string format to the circular queue for printing in using the polling mode
   */
+ #if TRACE_ENABLED
+#include "stm32_adv_trace.h"
 #define TIMER_IF_DBG_PRINTF(...) do{ {UTIL_ADV_TRACE_COND_FSend(VLEVEL_ALWAYS, T_REG_OFF, TS_OFF, __VA_ARGS__);} }while(0);
+ #else /* !TRACE_ENABLED */
+  #ifdef SEGGER_RTT
+#include "sys_debug.h"
+#define TIMER_IF_DBG_PRINTF(...) SEGGER_PRINTF( TS_OFF, RTC_T, __VA_ARGS__ )
+  #else
+#define TIMER_IF_DBG_PRINTF(...)
+  #endif /* SEGGER_RTT */
+ #endif /* TRACE_ENABLED */
+
 #else
 /**
   * @brief not used

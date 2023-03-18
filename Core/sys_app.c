@@ -113,6 +113,9 @@ void SystemApp_Init(void)
 #if defined (DEBUGGER_ENABLED) && (DEBUGGER_ENABLED == 1)
   /* Configure the debug mode*/
   DBG_Init();
+ #ifdef SEGGER_RTT
+  UTIL_DEBUG_RegisterTimeStampFunction(TimestampNow);
+ #endif /* SEGGER_RTT */
 #else
   /* Debug config : disable serial wires and DbgMcu pins settings */
   DBG_Disable();
@@ -121,12 +124,14 @@ void SystemApp_Init(void)
   /* Initializes the SW probes pins and the monitor RF pins via Alternate Function */
   DBG_ProbesInit();
 
+#if TRACE_ENABLED
   /*Initialize the terminal */
   UTIL_ADV_TRACE_Init();
   UTIL_ADV_TRACE_RegisterTimeStampFunction(TimestampNow);
 
   /*Set verbose LEVEL*/
   UTIL_ADV_TRACE_SetVerboseLevel(VERBOSE_LEVEL);
+#endif /* TRACE_ENABLED */
   
   /*Initialize the temperature and Battery measurement services */
   SYS_InitMeasurement();

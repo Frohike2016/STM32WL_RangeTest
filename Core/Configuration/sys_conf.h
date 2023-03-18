@@ -53,7 +53,8 @@ extern "C" {
   * @brief Enable MCU Debugger pins (dbg serial wires, dbg spi, etc)
   * @note  1:ON it enables the debbugger, 0:OFF the debugger is OFF (lower consumption)
   */
-#define DEBUGGER_ENABLED            0
+//TODO: remove this define and move it to DEBUG compilation config
+#define DEBUGGER_ENABLED            1
 
 /**
   * @brief Enable four wires usable as probes (two of them PROBE1 and PROBE2 used by the MW)
@@ -67,7 +68,21 @@ extern "C" {
 #define LOW_POWER_DISABLE           0
 
 /* USER CODE BEGIN EC */
+/**
+  * @brief Enable or disable LOGs using COM port
+  * @note  If enabled SEGGER RTT Debugging will be disabled, if disabled we can still LOG using SEGGER RTT
+  */
+#define TRACE_ENABLED               1 // Enable LOG in COM port
 
+#if DEBUGGER_ENABLED
+ #if !(TRACE_ENABLED)
+#define SEGGER_RTT                    // Enable SEGGER RTT Debugging LOG through SWD
+ #endif /* !(TRACE_ENABLED) */
+//#define DEBUG_PINS
+#endif /* DEBUGGER_ENABLED */
+
+#define MW_LOG_ENABLED                // Enable Middleware LOG
+#define RTIF_DEBUG                    // Enable RTC Interface LOG
 /* USER CODE END EC */
 
 /* External variables --------------------------------------------------------*/

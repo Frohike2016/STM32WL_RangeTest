@@ -28,7 +28,7 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32_adv_trace.h"
+#include "sys_conf.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -40,7 +40,6 @@ extern "C" {
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
-#define MW_LOG_ENABLED
 
 /* USER CODE BEGIN EC */
 
@@ -53,7 +52,17 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 #ifdef MW_LOG_ENABLED
+ #if TRACE_ENABLED
+#include "stm32_adv_trace.h"
 #define MW_LOG(TS,VL, ...)   do{ {UTIL_ADV_TRACE_COND_FSend(VL, T_REG_OFF, TS, __VA_ARGS__);} }while(0)
+ #else
+  #ifdef SEGGER_RTT
+#include "sys_debug.h"
+#define MW_LOG(TS,VL, ...)   SEGGER_PRINTF( TS, MDDW_T, __VA_ARGS__ )
+  #else
+#define MW_LOG(TS,VL, ...)
+  #endif /* SEGGER_RTT */
+ #endif /* TRACE_ENABLED */
 #else  /* MW_LOG_ENABLED */
 #define MW_LOG(TS,VL, ...)
 #endif /* MW_LOG_ENABLED */

@@ -34,12 +34,20 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+typedef struct {
+#if defined(USE_FULL_ASSERT) && !defined(ASSERT_FILE_LOG)
+  uint16_t numOfAssertFailed;
+#endif /* USE_FULL_ASSERT && !ASSERT_FILE_LOG */
+#ifdef SEGGER_RTT
+  cb_debug_timestamp *timestamp_func;
+  uint8_t logBuff[32]; /* buffer for channel 1: log */
+#endif /* SEGGER_RTT */
+} DEBUG_Context;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define MAX_TIMESTAMP_SIZE	16
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -49,7 +57,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+DEBUG_Context DEBUG_Ctx;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -83,10 +91,12 @@ void DBG_Disable(void)
 #endif /* DEBUGGER_DISABLED */
 
   /* Disabled HAL_DBGMCU_  */
-  DBG_ConfigForLpm(0);
+  DBG_ConfigForLpm(false);
 
   /* USER CODE BEGIN DBG_Init_Last */
-
+#if defined(USE_FULL_ASSERT) && !defined(ASSERT_FILE_LOG)
+  DEBUG_Ctx.numOfAssertFailed = 0;
+#endif /* USE_FULL_ASSERT && !ASSERT_FILE_LOG */
   /* USER CODE END DBG_Init_Last */
 }
 
@@ -144,12 +154,18 @@ GPIO_InitTypeDef  GPIO_InitStruct = {0};
   LL_EXTI_EnableIT_32_63(LL_EXTI_LINE_46);
 
   /* lowpower DBGmode: just needed for CORE_CM4 */
-  HAL_DBGMCU_EnableDBGSleepMode();
-  HAL_DBGMCU_EnableDBGStopMode();
-  HAL_DBGMCU_EnableDBGStandbyMode();
+  DBG_ConfigForLpm(true);
 
   /* USER CODE BEGIN DBG_Init_Last */
-
+#if defined(USE_FULL_ASSERT) && !defined(ASSERT_FILE_LOG)
+  DEBUG_Ctx.numOfAssertFailed = 0;
+#endif /* USE_FULL_ASSERT && !ASSERT_FILE_LOG */
+#ifdef SEGGER_RTT
+  /* initialize the SEGGER RTT Control Block and the Channel 0 */
+  SEGGER_RTT_Init();
+  /* add channel 1: log (In no Blocking mode) */
+  SEGGER_RTT_ConfigUpBuffer(1, "Log", DEBUG_Ctx.logBuff, sizeof(DEBUG_Ctx.logBuff), SEGGER_RTT_MODE_NO_BLOCK_TRIM);
+#endif /* SEGGER_RTT */
   /* USER CODE END DBG_Init_Last */
 }
 #endif /* DEBUGGER_ENABLED */
@@ -189,8 +205,66 @@ void DBG_ConfigForLpm(uint8_t enableDbg)
   /* USER CODE END DBG_ConfigForLpm_Last */
 }
 
-/* USER CODE BEGIN EF */
+#if defined(USE_FULL_ASSERT) && !defined(ASSERT_FILE_LOG)
+void DBG_Incr_AssertFailed ( void )
+{
+  DEBUG_Ctx.numOfAssertFailed++;
+}
+uint16_t DBG_Get_AssertFailed ( void )
+{
+  return DEBUG_Ctx.numOfAssertFailed;
+}
+#endif /* USE_FULL_ASSERT && !ASSERT_FILE_LOG */
 
+/* USER CODE BEGIN EF */
+#ifdef SEGGER_RTT
+void UTIL_DEBUG_RegisterTimeStampFunction(cb_debug_timestamp *cb)
+{
+  DEBUG_Ctx.timestamp_func = *cb;
+}
+
+void SEGGER_PRINTF( bool timeStamp, Segger_terminal_t tID, const char * sFormat, ... )
+{
+  int error = 0;
+  uint8_t bufferID = 0; // Later on we will change if terminal is LOG
+  va_list ParamList;
+
+  if (tID >= TERMINAL_SIZE)
+  {
+ #ifdef USE_FULL_ASSERT
+  #ifdef ASSERT_FILE_LOG
+   assert_failed((uint8_t *)__FILE__, __LINE__);
+  #else
+   assert_failed ( );
+  #endif /* ASSERT_FILE_LOG */
+ #endif /* USE_FULL_ASSERT */
+  }
+  else if (tID == LOG_T) bufferID = 1; // Set the SEGGER UP-Buffer to use LOG Buffer
+
+  if (timeStamp) // We will print Timestamp at the beginning of the message
+  {
+	uint8_t tsBuffer[MAX_TIMESTAMP_SIZE];
+	uint16_t tsSize;
+
+	//Get Timestamp
+	DEBUG_Ctx.timestamp_func(tsBuffer, &tsSize);
+
+	if (tID == LOG_T)  error = SEGGER_RTT_Write(1, tsBuffer, tsSize); // print Timestamp
+	else
+	{
+      error = SEGGER_RTT_SetTerminal(tID); // Configure the proper terminal
+	  if (error >= 0)  error = SEGGER_RTT_Write(0, tsBuffer, tsSize); // print Timestamp
+	}
+  }
+
+  if (error >= 0)
+  {
+    va_start(ParamList, sFormat);
+  	SEGGER_RTT_vprintf(bufferID, sFormat, &ParamList);
+  	va_end(ParamList);
+  }
+}
+#endif /* SEGGER_RTT */
 /* USER CODE END EF */
 
 /* Private Functions Definition -----------------------------------------------*/
