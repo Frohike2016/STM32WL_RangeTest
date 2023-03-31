@@ -68,6 +68,9 @@ extern "C" {
 #define LOW_POWER_DISABLE           0
 
 /* USER CODE BEGIN EC */
+#define USE_E_PAPER_SCREEN          1 // Waveshare 1.54 inch E-Paper Screen
+//#define USE_LPUART1                 1 // Used to communicate with B-L072Z-LRWAN1 board (Murata or Ebyte radio)
+//#define USE_USART1                  1 // Used to communicate with RAK3172 board (and also STM32WLE5 board using another pins)
 /**
   * @brief Enable or disable LOGs using COM port
   * @note  If enabled SEGGER RTT Debugging will be disabled, if disabled we can still LOG using SEGGER RTT

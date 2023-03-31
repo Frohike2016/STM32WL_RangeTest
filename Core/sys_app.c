@@ -24,6 +24,7 @@
 #include "platform.h"
 #include "sys_app.h"
 #include "adc_if.h"
+#include "spi.h"
 #include "stm32_seq.h"
 #include "stm32_systime.h"
 #include "stm32_lpm.h"
@@ -33,7 +34,9 @@
 //#include "sys_sensors.h"
 
 /* USER CODE BEGIN Includes */
-
+#ifdef USE_E_PAPER_SCREEN
+#include "app_screen.h"
+#endif /* USE_E_PAPER_SCREEN */
 /* USER CODE END Includes */
 
 /* External variables ---------------------------------------------------------*/
@@ -149,7 +152,16 @@ void SystemApp_Init(void)
 #endif /* LOW_POWER_DISABLE */
 
   /* USER CODE BEGIN SystemApp_Init_2 */
-
+  /*Initialize the remaining peripherals */
+#if USE_LPUART1
+  MX_LPUART1_UART_Init();
+#endif /* USE_LPUART1 */
+#if USE_UART1
+  MX_USART1_UART_Init();
+#endif /* USE_UART1 */
+#if USE_E_PAPER_SCREEN
+  WSEPD_Init();
+#endif /* USE_E_PAPER_SCREEN */
   /* USER CODE END SystemApp_Init_2 */
 }
 

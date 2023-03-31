@@ -94,6 +94,14 @@ void Error_Handler(void);
 #define DBG4_Pin GPIO_PIN_10
 #define DBG4_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
+#define EPD_RST_Pin GPIO_PIN_2
+#define EPD_RST_GPIO_Port GPIOC
+#define EPD_BUSY_Pin GPIO_PIN_9
+#define EPD_BUSY_GPIO_Port GPIOA
+#define EPD_DC_Pin GPIO_PIN_6
+#define EPD_DC_GPIO_Port GPIOA
+#define EPD_CS_Pin GPIO_PIN_4
+#define EPD_CS_GPIO_Port GPIOA
 
 /* USER CODE END Private defines */
 

@@ -26,7 +26,9 @@
 #include "stm32_seq.h"
 
 /* USER CODE BEGIN Includes */
-
+#if USE_E_PAPER_SCREEN
+#include "app_screen.h"
+#endif /* USE_E_PAPER_SCREEN */
 /* USER CODE END Includes */
 
 /* External variables ---------------------------------------------------------*/
@@ -67,17 +69,34 @@ void MX_SubGHz_Phy_Init(void)
 
   /* USER CODE END MX_SubGHz_Phy_Init_1 */
   SystemApp_Init();
-  Sensor_Init();
-//  SubghzApp_Init();
+  //Range_test_Init ( ); //Sensor_Init();
   /* USER CODE BEGIN MX_SubGHz_Phy_Init_2 */
-
+#if USE_E_PAPER_SCREEN
+  Screen_Init ( gImage_Frame );
+  Screen_Set_AppState ( RANGETEST_OFF, DISPLAY_PARTIALMODE );
+  HAL_Delay(500);
+  Screen_Set_AppState ( RANGETEST_SCANNING, DISPLAY_KEEPMODE );
+  HAL_Delay(500);
+  Screen_Set_AppState ( RANGETEST_ON, DISPLAY_KEEPMODE );
+#endif /*USE_E_PAPER_SCREEN */
   /* USER CODE END MX_SubGHz_Phy_Init_2 */
 }
 
 void MX_SubGHz_Phy_Process(void)
 {
   /* USER CODE BEGIN MX_SubGHz_Phy_Process_1 */
-
+#if USE_E_PAPER_SCREEN
+  for (int i = 0; i < 5; i++)
+  {
+	Screen_Update_Info ( STM32WL55JC );
+	Screen_Update_Info ( MURATA_ABZ );
+	Screen_Update_Info ( E22_900M22S );
+  }
+ #if 1
+  Screen_Force_Refresh ( );
+  Screen_PowerOff ( DISPLAY_EXIT );
+ #endif
+#endif /*USE_E_PAPER_SCREEN */
   /* USER CODE END MX_SubGHz_Phy_Process_1 */
   UTIL_SEQ_Run(UTIL_SEQ_DEFAULT);
   /* USER CODE BEGIN MX_SubGHz_Phy_Process_2 */

@@ -224,6 +224,7 @@ typedef enum
 #define DMA_TAG			"|DMA| "
 #define CRYP_TAG		"|CRYP| "
 #define TSRV_TAG		"|TSRV| "
+#define EPD_TAG			"|EPD| "
 #define ERROR_TAG		"Terminal code error"
 #define _NL_			"\r\n"
 /* USER CODE END EC */

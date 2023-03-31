@@ -295,7 +295,7 @@ extern EXTI_HandleTypeDef sys_hpb_exti[SYS_BUTTONn];
   *            @arg SYS_LED1
   * @return BSP status
   */
-int32_t          SYS_LED_Init(Sys_Led_TypeDef SYS_LED);
+int32_t SYS_LED_Init(Sys_Led_TypeDef SYS_LED);
 
 /**
   * @brief  DeInit SYS_LEDs.
@@ -307,7 +307,7 @@ int32_t          SYS_LED_Init(Sys_Led_TypeDef SYS_LED);
   * @note Led DeInit does not disable the GPIO clock nor disable the Mfx
   * @return BSP status
   */
-int32_t          SYS_LED_DeInit(Sys_Led_TypeDef SYS_LED);
+int32_t SYS_LED_DeInit(Sys_Led_TypeDef SYS_LED);
 
 /**
   * @brief  Turns selected SYS_LED On.
@@ -318,7 +318,7 @@ int32_t          SYS_LED_DeInit(Sys_Led_TypeDef SYS_LED);
   *            @arg SYS_LED1
   * @return BSP status
   */
-int32_t          SYS_LED_On(Sys_Led_TypeDef SYS_LED);
+int32_t SYS_LED_On(Sys_Led_TypeDef SYS_LED);
 
 /**
   * @brief  Turns selected SYS_LED Off.
@@ -329,7 +329,7 @@ int32_t          SYS_LED_On(Sys_Led_TypeDef SYS_LED);
   *            @arg SYS_LED1
   * @return BSP status
   */
-int32_t          SYS_LED_Off(Sys_Led_TypeDef SYS_LED);
+int32_t SYS_LED_Off(Sys_Led_TypeDef SYS_LED);
 
 /**
   * @brief  Toggles the selected SYS_LED.
@@ -340,7 +340,7 @@ int32_t          SYS_LED_Off(Sys_Led_TypeDef SYS_LED);
   *            @arg SYS_LED1
   * @return BSP status
   */
-int32_t          SYS_LED_Toggle(Sys_Led_TypeDef SYS_LED);
+int32_t SYS_LED_Toggle(Sys_Led_TypeDef SYS_LED);
 
 /**
   * @brief  Get the status of the selected SYS_LED.
@@ -351,7 +351,7 @@ int32_t          SYS_LED_Toggle(Sys_Led_TypeDef SYS_LED);
   *            @arg SYS_LED1
   * @return SYS_LED status
   */
-int32_t          SYS_LED_GetState(Sys_Led_TypeDef SYS_LED);
+int32_t SYS_LED_GetState(Sys_Led_TypeDef SYS_LED);
 /**
   * @}
   */
@@ -373,7 +373,7 @@ int32_t          SYS_LED_GetState(Sys_Led_TypeDef SYS_LED);
   *                            generation capability
   * @return BSP status
   */
-int32_t          SYS_PB_Init(Sys_Button_TypeDef Button, Sys_ButtonMode_TypeDef ButtonMode);
+int32_t SYS_PB_Init(Sys_Button_TypeDef Button, Sys_ButtonMode_TypeDef ButtonMode);
 
 /**
   * @brief  Push Button DeInit.
@@ -385,7 +385,7 @@ int32_t          SYS_PB_Init(Sys_Button_TypeDef Button, Sys_ButtonMode_TypeDef B
   * @note PB DeInit does not disable the GPIO clock
   * @return BSP status
   */
-int32_t          SYS_PB_DeInit(Sys_Button_TypeDef Button);
+int32_t SYS_PB_DeInit(Sys_Button_TypeDef Button);
 
 /**
   * @brief  Returns the selected Button state.
@@ -396,7 +396,7 @@ int32_t          SYS_PB_DeInit(Sys_Button_TypeDef Button);
   *            @arg SYS_BUTTON2
   * @return The Button GPIO pin value.
   */
-int32_t          SYS_PB_GetState(Sys_Button_TypeDef Button);
+int32_t SYS_PB_GetState(Sys_Button_TypeDef Button);
 
 /**
   * @brief Button SW1 EXTI line detection callback.
@@ -431,7 +431,7 @@ void SYS_BUTTON2_EXTI_Callback(void);
   * @brief  This function handles Push-Button interrupt requests.
   * @param  Button Specifies the pin connected EXTI line
   */
-void             SYS_PB_IRQHandler(Sys_Button_TypeDef Button);
+void SYS_PB_IRQHandler(Sys_Button_TypeDef Button);
 
 /**
   * @}
