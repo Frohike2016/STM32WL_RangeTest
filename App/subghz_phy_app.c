@@ -194,9 +194,6 @@ void Sensor_Init(void)
   UTIL_TIMER_Create(&timerLedRx,0xFFFFFFFF,UTIL_TIMER_ONESHOT,OnLedRxEvent,NULL);
   UTIL_TIMER_SetPeriod(&timerLedRx,LED_PERIOD_MS);
 
-  /* ADC measurement */
-  SYS_InitMeasurement();
-
   /* Radio initialization */
   RadioEvents.TxDone = OnTxDone;
   RadioEvents.RxDone = OnRxDone;
